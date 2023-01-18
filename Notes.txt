@@ -1,0 +1,256 @@
+CSE 475
+1-11-23
+Module 1 
+	1.1
+		Course Overview:
+			Paulo Shakarian Worked with darpa with the original self driving cars. This inspired him to get more into the field of machine learning
+			Machine learning takes in data, finding patterns to deal with situations and solve problems
+		There will be 5 units
+			I)Summarize the basic concepts of a machine learning solution to include data preparation, training, testing and deployment
+			II)Describe the concepts inherent to feature-based supervised machine learning
+			III)Describe the concepts inherent to supervised deep learning approaches
+			IV)Describe the concepts of machine learning used in non-parametric, unsupervised and reinforcement cases
+			V)Summarize key concepts regarding ethics and limitaions in machine learning
+	UNIT I Overview:
+		1.1 Describe the basic characteristics of a machine learning approach
+		1.2 Prepare fata for use by a feature-based machine learning approach
+		1.3 Prepare a simple supervised, feature-based model for classification(decision tree)
+		1.4 Prepare a supervised machine learning model for deployment
+CD4ML Paradigm
+	1.2
+		Machine learning Basics Introduction
+			Objs:
+				Describe the basic charactersitics of a machine learning approach
+				Descirbe the relationship between machine learning and AI
+				Classify machine learning approaches as classification or regression
+				Classify machine learning approaches as feather-based or featureless
+				Use common machine learning tools such as Python 3.x, Pandas, Jupyter Labs, scikit-learn
+			INSTALL 
+				Python
+				Scikit-learn
+				Pandas
+				Matplotlib
+				TensorFlow
+				Jupyter Labs
+			QUESTIONS:
+				Artificial Intelligence is a SUPERSET in relation to machine learning
+				Deep learning is a TYPE OF MACHINE LEARNING
+			Lecture 1: Machine Learning and AI
+				OBJ: Descirbe the relationship between machine learning and AI
+					AI is a largetoolkit of techniques to mimic human thinking and learning
+					Within AI we have:
+						Machine learning
+						Game Theory
+						Logical Inference
+						Genetic Algorithms
+						Search/path planning i.e. A*
+					Within ML:
+						Deep learning
+						DEcision TRees
+						Statistical ML
+						Random Forest
+					"When AI works, they stop calling it AI"
+					Recommendation on amazon and netflix is a form of AI
+			Lecture 2: Types of ML
+				OBJ:
+					Classify machine learning approaches as classification or regression
+					Classify machine learning approaches as feature-based or featureless
+				We have done ML:
+					Predicting sales based on current and previous data, we can get a regression line
+					the formula of y=mx+b is a model
+						adding data to change the model is called RETRAINING THE MODEL
+					Parametric models mean you dont have to go back to historical data or change it
+					X is called a "feature": it is used to predict something
+				Deep learning is featureless: 
+					can work directly on data itself
+					this is important because it can be challenging to create features from data
+					This has helped deep learning to become the most popular
+				Featureless is best for homogenous data
+					it becomes difficult when you have multiple types of data
+				Classification vs. Regression:
+					Classification
+						model returns a discrete value
+							"the species of an iris is on of { orchid,rose,xxx}
+					Regression 
+						returns a numerical value
+				Supervised vs. Unsupervised ML:
+					Supervised
+						uses historucal data to make a new prediction. 
+							Regression, most Deep learning techniques, SVM, decision trees, random forests
+						Changes to prediction are based on retraining of the model
+					Unsupervised:
+						Uses the data at hand to provide some insight
+							average, most anomaly detection, nearest neighbor alrorithms, clustering
+						Changes to the ouput are based on calibration of the technique
+	1.3
+		What is Data Mining?
+			Data Mining: The computational process of discovering patterns in large data sets with the goal of extracting insights
+				Uses methods from both machine learning and statistics
+			Machine Learning: A branch of computer science that evolved from the study of pattern recognition and computational learning theory in AI
+				Machine learning involves the study and construction of algorithms that can learn from data and make predictions on that data. 
+				Machine learning is a central part of data mining, along with classical statitics
+			Descriptive statistics: Quantitative summaries of the main features of a data set
+				Descriptive statistics is solely concerned with properties of the observed data, and does not assume that the data came from a larger population. 
+				Descriptive stats includes the calc of measures of center, measures of spread and some basic visualizations
+			Inferential Statistics
+				inferential stats includes developing point estimates, confidence intervals, conducting hypothesis test and applying a variety of statistical models.
+				inferential stats often use descriptive stats as a starting point
+			CRISP-DM:
+				Cross industry standard process for data mining:
+					1. Business Understanding
+						Business objectives need to be understood and identified before starting a data mining task
+					2. Data Understanding
+						Data miner must know how the data was obtained, the format of data, number of records and unit of measurments
+					3. Data Preparation
+						Determine whether to transform the data and how to handle missing values
+							Can use dimensionality reduction to make the data set more manageable for analysis
+					4. Modeling
+						Data miner must determine whether the data set satisfies the assumption of the chosen model
+					5. Evaluation
+						Data miner must determine if the objective of te task was met
+					6. Deployment
+						Determine how the model can help achieve business objectives such as increasing profit or decreasing the number of defects in the manufacturing process
+	1.4
+		Data Formats
+			Observation: record associated with an individual entitiy, usually found in a single row
+			Feature: a column containing information associated with each entity
+			Three common data formats that are currently in use
+				CSV
+					One observation per row and features separated by a delimiter(comma)
+				JSON
+					JavaScript Observation Notation
+				XML
+					Extensible Markup Language(basically HTML) Data separated by tags <Make>Toyota</Make>
+	1.5
+		Scikit-learn data preparation functions
+			<PACKAGE>			<FUNCTION>					<DESCRIPTION>
+			preprocessing		scale						standardizes a data frame
+			preprocessing		MinMaxScaler				normalizes data
+			impute 				SimpleImputer				replaces missing values
+			model_selection		train_test_split			splits data into random train and test data sets
+			model_selection 	cross_validate				performs k-fold cross validation
+		Supervised Learning Functions
+			<PACKAGE>			<FUNCTION>					<DESCRIPTION>
+ 			linear_model		LinearRegression()			fits a linear least squares model
+ 			linear_model		LogisticRegression()		fits a logistic regression model
+ 			neighbors			KNeighborsClassifier		uses KNN to classify data
+ 			neighbors			KNeighborsRegressor			uses KNN to predict results from data
+ 			naive_bayes			GaussianNB					Performs Naive Bayes with Gaussian likelihood
+ 		Unsupervised Learning Functions
+			<PACKAGE>			<FUNCTION>					<DESCRIPTION>
+			cluster				KMeans						chooses clusters by minimixing intertia
+			cluster				AgglomerativeClustering		performs bottom up hierarchical clustering
+			metrics				homogeneity_score			returns measure of the homogeneity of a cluster	
+			metrics				completeness_score			returns measure of the completeness of a cluster	
+			metrics				v_measure_score				returns harmonic mean of completeness and homogeneity
+		Decision trees
+			<PACKAGE>			<FUNCTION>					<DESCRIPTION>
+			tree				DecisionTreeClassifier()	performs CART classification
+			tree 				DecisionTreeRegressor()		performs CART regression
+			ensemble			RandomForestClassifier()	performsclassification with a random forest
+			ensemble			RandomForestRegressor()		performs regression with a random forest
+	1.6 NumPy package
+		Goals:
+			Understand NumPy Arrays
+			relate array container nesting to array dimensions and shape
+			Review array shape and math functions
+			one or two dimensional arrays can be represented with ndarray
+				can be created with array() function
+			the shape of an array is the tuple of level sizes and is stored in the array.shape attribute i.e.[[1,2,3][1,2,3]] (2,3)
+			
+		All array functions may take a scalar argument instead of an array argument
+		Comparison operators work with array operands
+		An aggregate function does not always return exactly one value
+		The variance function is not a simple function because simple functions return one value for each array element
+		Simple functions
+			Such as sqrt() and log()
+			May have an array argument and is applied to each element and returns an array
+		Aggregate function
+			Such as min() max() median() var()
+			returns one value for aentire array or array slice
+		Matrix Function
+			interprets arrays as mathematical matrices and implements matrix algebra
+		Aggregate and Matrix functions work with arrays and scalars arguments, since scalar is a zero-dimensional array
+1-12-23
+Week 1: Day 2
+	In-Class Notes
+	Definitions:
+		AI:
+			The theory and development of computer systems able to perform tasks that normally require human intelligence
+			such as visual perception, speech recognition, decision-making, and translation between languages.
+		Machine Learning:
+			the use and development of computer systems that are able to learn and adapt without following explicit instructions
+			by using algorithms and statistical models to analyze and draw inferences from patterns in data.
+		Deep Learning:
+			
+    What is the relationship between AI, machine learning, and deep learning?
+		Deep learning is within Machine Learning and Machine Learning is within AI
+
+		Machine learning is a variation of AI
+			Deep Learning is a featureless subset of Machine Learning
+		Machine Learning and Deep Learning are both disciplines of AI
+    What is the difference between regression and classification?
+		Classification returns a discrete value such as Toyota, Red or orchid
+		Regression returns a numerical value such a 1,2.3		
+    What is the difference between feature-based and featureless machine learning?
+		Feature-based ML uses "features" to predict future outcomes
+			can have millions of features used for prediction
+			breaks down data and possibly uses observations to determine data
+		Featureless
+			works best on data that looks the same i.e. 
+			can work on data directly
+			doesnt need to understand whatits looking at, it just taked the data
+    What are some of the common characteristics of deep learning?
+		Featureless	
+		can modify data itselft
+    What are the various software packages in this course and what do they do?
+		Pandas
+		Scikit-learn
+		Python
+		Matplotlib
+		Anaconda
+		TensorFlow
+		Jupyter 
+
+	
+Week 2: Day 1
+	Before Class Notes:
+		More than 40% of tim ewill be loading data and cleaning data
+	Goals:
+		Prepare data for use by a feature-based machine learning approach
+    	Classify different features such as categorical, ordinal, or scalar.
+    	Prepare data for use by a feature-based approach by standardizing values.
+    	Describe techniques to clean data for use by feature-based approaches
+	Types of data analysis:
+		Descriptive: seeks to describe data ( based on collected data the world population in 2015 is about 7 billion)
+			Descripe data to provide insight and knowledge
+				Generally in the realm of unsupervised approache
+		Predictive: seeks to predict data( the population iis estimated to be 11.2 billion in 2100)
+			Make a prediction based on the data
+				Generally in the realm of supervised machine learning approached
+		Prescriptive: seeks to make decisions based on data ( population predictions for specific countries help the UN decide where to focus agricultural development)
+			Make decisions based on data	
+				Generally in the realm of other areas of AI(Game theory and AI planning)
+	Types of values:
+		When dealing with tabular data(feature based approaches) its important to consider the type of data
+	Quantitative: has a numerical value (age, income, home runs)
+	Categorical: based on a a set of values(gender, blood type, month)
+	Bucketing changes Quantitative to Categorical data from "age" to "under 19", "35-50"
+	Categorical (not measured)
+		Nominal: no ordering (nominal means name only)
+		Original: ordering (ex, disagree, neutral, agree)
+	Quantitative (measured)
+		Continuous: allows fractions
+		Discrete: only natural numbers
+	In 2016 the amount of data collected worldwide was around 10 zetabytes
+	A zetabyte is about 1 sextillion 10^21
+
+	Cleaning Data:
+		Pandas has NaN symbol for missing data
+		Imputation means to set a value to certain statistic (similar to setting to zero it depends on the domain if its successful)
+		Dropping the row(drops row if its not complete) dropna
+		Dropping the column:
+			get rid of that feature completely ; del will delete column
+	
+		
+Week 2: Day 2
