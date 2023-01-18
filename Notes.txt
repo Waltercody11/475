@@ -255,3 +255,127 @@ Week 2: Day 1
 		
 Week 2: Day 2
 	Basic Supervised Classification Introduction
+
+	Learning objectives:
+		    Prepare a simple supervised, feature-based model for classification (decision tree)
+    		Describe how a decision tree works
+    		Describe the processes of training, testing, and validation of a model
+    		Select appropriate data for model training
+    		Define Machine Learning Operations (“ML Ops”)
+    		Describe “ML Ops” considerations involving the deployment and maintenance of models in a production environment
+    		Create a decision tree model from data
+	Iris Classification:
+								Petal Length <=.8
+									   /\
+									  Y  N
+									 /    \
+							Iris Setosa		Petal width <= 4.95
+													/\
+												   Y  N
+												  /    \
+									Iris is Virginica   Iris is Versicolour
+	Training data:
+		Previously known data 
+	Supervised Data:
+		use historical data to creat a supervised model
+	When we encounter new measurements, we can use the model to infer the results
+
+	Supervised machine learning:
+		Classification:
+			model returns a discrete value
+				i.e the species of iris is one of {setosa, versicolour, virginica}
+		Regression:
+			the model returns a numerical value 
+				i.e $500
+	Review: Feature-based vs. featureless
+		Feature based	
+			the model uses specific measurements derived from the data ( use measurements of petals and sepals of the iris)
+		Featureless
+			The model works directly on the data ( uses the image of the iris )
+	Feature-based supervised classification:
+		Use of training data
+		Training algorithm different from inferences
+		Ground truth to measure performance
+	Sample:
+		each instance in training data
+	Features:
+		measurements associated with each Sample
+	Target Class label:
+		catergorization of each sample (the goal to achieve)
+	How to use historical data:
+		Split into three categories:
+			Training:
+				 fitting the model to the data
+			Validation:
+				Determination of the best hyperparameters
+			Testing:
+				Overall Evaluation
+	Reading:
+		Supervised learning:
+			predict a particular feature's value based on other features' values. The feature being predicted is called the Target
+		Prediction:
+			Estimates the value of a continous Target
+				can also be called estimation
+		Classification:
+			identifies the label for a catergorical target.(Purchase value would involve prediction and genger would involve classification)
+		Commonly used supervised learning methods:
+			LinearRegression
+			K-nearest neighbor(Knn)
+			LogisticRegression
+		
+		FOR EACH TARGET FEATURE LISTED, IDENTIFY WHETHER PREDICTION OR Classification IS MORE APPROPRIATE 
+		TOTAL SALES REVENUE FOR A STARTUP
+			PREDICTION : SALES REVENUE IS A CONTINUOUS TARGET, SO PREDICITON IS MOST APPROPRIATE
+		WHETHER OR NOT TO APPROVE A LOAN APPLICATION
+			CLASSIFICATION : THE DECISION TO GRANT A LOAN IS BINARY A FORM OF CATEGORICAL TARGET SO CLASSIFICATION IS MOST APPROPRIATE
+		THE MUST STYLE OF A SONG
+			CLASSIFICATION : MUSIC STYLE IS A CATEGORICAL TARGET
+		AGE IN YEARS AT DEATH OF AN ELEPHANT
+			PREDICTION	
+	Cluster Analysis: groups similar observations together based on the observed features. 
+		Two types of cluster analysis exits:
+			hierarchical clustering
+			k-means clustering
+	Association Rules:
+		Identify items that "go together" in the form of if-then statments'. ( such as amazon suggesting lightbulbs when you buy a lamp)
+	3.3
+		Training, Validation, and test sets
+			Partitioning data
+				splitting of available data into two sometimes three parts
+					Training validation: used to construct or "train" the model
+					Validation partition: is used to implement the model and evaulate the model's performance on "new" data
+					Test partition(optional): used to compare different models to prevent overfitting of the validation data
+			Test data set
+				Conservatively estimating the selected model's effectiveness when applied to data not used to build or select the model
+			Training data set	
+				Building candidate models for Comparison
+			New Data set
+				Applying the selected model to make predictions to answer questions of interest
+			Validation data set	
+				Comparsion of promising modes to determine which model is most accurate when applied to data not used to build the model
+	3.4 
+		Decition tree
+			gini index is impurity
+			Weighted gini = gini index * fraction of data
+			entropy is also an option for impurity
+				-p(i)*logp(i)
+			Pros and Cons:
+				Pros:
+					Simple	
+					Explainable
+					Performant
+					Works well with limited data
+				Cons:
+					Not best performing in terms of accuracy, especially for large data
+	3.5
+		Introduction to decision trees
+			Node: determines whether a condition is satisfied and contains a splits of a feature
+			Gini calc:
+				1-(x/y^2+z/y^2)
+	3.6
+	
+	3.7
+	
+	3.8
+	
+	3.9
