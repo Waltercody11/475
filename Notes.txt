@@ -354,7 +354,7 @@ Week 2: Day 2
 			Validation data set	
 				Comparsion of promising modes to determine which model is most accurate when applied to data not used to build the model
 	3.4 
-		Decition tree
+		Decision tree
 			gini index is impurity
 			Weighted gini = gini index * fraction of data
 			entropy is also an option for impurity
@@ -383,7 +383,7 @@ Week 2: Day 2
 			1 - ((2/4)^2+(2/4)^2) = 0.5
 		Split according to size, gini of size = big:
 			1 - ((4/6)^2+(2/6)^2) = 0.44 
-		Overall according to size:
+		Overall gini according to size:
 			0.5(4/10)+0.44(6/10) = 0.47
 	3.7
 		Entropy:
@@ -392,8 +392,51 @@ Week 2: Day 2
 		Weight is occurence / TOTAL
 		total gain = entropy*weight + ..... for all entropies
 
-	
-	3.8
-	
-	3.9
-		
+	Questions of the day:
+
+        How is historical data divided into training, validation, and testing sets and what is the purpose of each one?
+
+            Training:
+				Data that we already know the results of certain inputs or values
+				This data is used to train an algorithm or machine learning  model to predict the outcome you design your model to predict 
+            Validation:
+				Used to implement the model and test its performance on "new" data
+				This can be inserted into the training data to test the algorithm against unknown data
+			Testing:
+				This data can be used to estimate the model's effectiveness when applied to data that has not been used to build or select the data model
+
+        What are the major hyperparameters of a decision tree?
+			Numerical values associated with the models structure or  with the learning alrogithm
+			Gini for impurity 
+        How is a decision tree learned from data?
+			At each node, greedily pick the best feature and threshold to provide the largest reduction in impurity
+			Pros:
+					Simple	
+					Explainable
+					Performant
+					Works well with limited data
+				Cons:
+					Not best performing in terms of accuracy, especially for large data
+
+        How is the Gini index calculated by a decision tree to determine a split?
+			see line 380
+        What are the components of the CD4ML model of machine learning operations and what is the purpose of each?
+			Data:
+				Choices of database
+				Storage of features vs. generation
+				Data schema
+				Data monitoring
+				Label quality
+			Model:
+				Choice of classifier
+				hyperparameter tuning
+				model retraining schedule
+				Performance monitoring
+				Experiments
+			Code:
+				Purchased Infrastructure
+				Developed Infrastructure
+				Cybersecurity 
+				Data security 
+				Maintenance
+			
