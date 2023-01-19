@@ -373,9 +373,27 @@ Week 2: Day 2
 			Gini calc:
 				1-(x/y^2+z/y^2)
 	3.6
-	
+		Gini Index calc:
+			|size | small | small |  big  | small |  big  | small |   big  |  big  |  big  |  big  |
+			|type |soldier|soldier| doll  | doll  | doll  | doll  |soldier |  doll | doll  |soldier|
+
+			overall gini index = 1 - ((4/10)^2+(6/10)^2) 
+			= 0.48
+		Split according to size,  gini of size = small:
+			1 - ((2/4)^2+(2/4)^2) = 0.5
+		Split according to size, gini of size = big:
+			1 - ((4/6)^2+(2/6)^2) = 0.44 
+		Overall according to size:
+			0.5(4/10)+0.44(6/10) = 0.47
 	3.7
+		Entropy:
+			x+y = z
+			-x/zlogx/z - y/zlogy/z
+		Weight is occurence / TOTAL
+		total gain = entropy*weight + ..... for all entropies
+
 	
 	3.8
 	
 	3.9
+		
