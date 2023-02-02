@@ -1,0 +1,82 @@
+Feb 1 2023
+Week 4: Day 1
+    Questions to answer:    
+        How does a random forest model make an inference for a given sample based on the decision derived by each tree in the forest?
+        What are the hyperparameters associated with the random forest classifier and what is their purpose?
+        How is a ROC curve created and how do you read it?
+        What is AUC?
+        What are some of the advantages and disadvantages of random forest?
+
+
+        Features
+        Gini
+        Recall
+        
+        5.1
+            Prepare a random forest for classification 
+            Still feature-based supervised model
+            classification returns a discrete value
+            Regression returns a numerical value
+            Random Forest Model:
+                How random forest model makes inferences
+                How confidence scores are used in a classfication result
+            Main problem of decision tree is accuracy and precision.
+            Benefits are its simple explainable performant and works well with small amount of data
+            Intuition:
+                if you use multiple models with moderate performacne, their combination delivers significantly improved overall performance
+            Forest refers to multiple decision trees
+            1. All the decision trees in the forest examine the sample, and makes an inference
+            2. Based on the results, the trees vote for the class
+                Confidence score is normalized score
+            3. Because of the voting, results can be expressed as a confidence score ( not confidence is not the same as probability)
+            hyperparameters (NOT ASSIGNED BY THE TRAINING PROCESS)
+                numerical values associated with the model's structure or with the learning algorithm
+                hyperparameters must be specified prior to training
+                Two types: 
+                    Model hyperparameters
+                    Algorithm hyperparameters
+            Key hyperparameters
+                Number of esitmators
+                    Number of decision trees
+                Maximum depth
+                    Max depth of deepest tree
+                Sample per esitmator
+                    Max samples used to create decision tree
+                Features per split
+                    Max number of features considered in each split
+            Put it all together
+            For each of “Number of Estimators” decision tree, do the following:
+                1. Select “Samples Per Estimator” number of samples from the historical data
+
+                2. Learn a decision tree of “Maximum depth” from those samples, but considering only “Features per split” number of features at each decision
+        
+        5.2
+
+        5.3
+            Reciever Operator Charactersitic curve or ROC curve
+                ROC:
+                    How do we pick confidence values?
+                        We may want a higher confidence value if optimizing for precision, and a lower one if optimizing for recall
+                        May want different confidence values for each class
+                A tool for helping understand trade off between TP and FP
+                Two measurements needed for ROC:
+                    True positive Rate  = TP/ TP + FN
+                    False Positive Rate = FP/ FP + TN
+
+                AOC:
+                    Area under curve can be used as a means to compare two ROC curves
+                    Compares TPR(Y) vs. FPR(X)
+            When to use random forest classifier:
+                ADV:
+                    Works well with little hyperparameter tuning
+                    Does not overfit the data
+                    Can be used for both regression and classification 
+                DISADV:
+                    Feature-based 
+                        you have to have features coming in
+                    Gradient-based approaches may outperform RF after tuned
+                    Not ideal  for cases where there is a known model structure or causal relationships
+                    Does not perform as well as other approaches when the number of features is high relative to the number of samples
+
+        Discussion:
+            ask, are random forest basically group of randomly generated decision trees based on the attributes of the original data 
