@@ -80,3 +80,81 @@ Week 4: Day 1
 
         Discussion:
             ask, are random forest basically group of randomly generated decision trees based on the attributes of the original data 
+
+Week 5: Day 1
+    Questions to answer:
+        Given a linear model, set of test samples, and ground truth, how do you calculate the mean squared error?
+        How is the number of parameters related to the number of training samples in a linear regression model?
+        What are some ways a linear regression model (with multiple features) is trained?
+        What is the i.i.d. assumption and what machine learning approaches make that assumption?
+        How can a classification model be used for regression?
+    
+    6.1
+        Linear Regression
+            f(x) = wx+b
+            w and b are parameters - and are learned from historical data
+            f(x1) = w0 + w1x1 ----------w stands for weight
+            Training data is data where we already know the answer ( this is supervised)
+        Samples
+            each instance in training data
+        Features
+            the measurements or attributes associated with each sample
+        Target
+            Value we are trying to predict
+        NOTATION:
+            One feature: 
+                f(x1) = w0 + w1x1 
+                 ws are parameters
+            Multiple Features
+                f(x...xm) = w0 + sumi->m wixi
+                w0....wm are parameters with m features
+            Vector notation:
+                fw(X) = WtX
+            W,X are column vectors of size m+1, we will use lower case letters (xi,xi) to specify positions within those vectors x0 = 1
+            m is the numeber of features, also called the dimension of the observation space
+            
+            We assume there are n samples in the training data
+            X vector associated to each sample
+            i.e. they are the features associated with each sample we often call Xi a sample
+    6.2 
+        response variable is the variable being modeled or predicted
+            dependent variable or output or outcome
+        predictor variable is the variable used to predict the response
+            independent variable or input or covariate
+        simple linear regression model is Y = B0+B1X+e, where e is the regression error term
+        Regression error: e = Y - E(Y)
+            E(Y) is expected value of Y
+        Sum of absolute errors (SAE) is sum of distance from regression line absolute value of all errors added as opposed to them all added not absolute
+
+    6.3
+
+    6.4
+        Error minimization:
+            Calculate MSE
+            independant and identically distributed (i.i.d)
+                selected from same domain but not dependent on other choices
+                the distribution is the same for all samples
+            Key Questions:
+                Need to find vector w such that fw(x) is as close to the test-set as possible
+            MSE:
+                Samples
+                Functions:
+                    looking for w in fw(x)
+                n-sized ground truth vector Y
+            MSE is computed as 1/n (sum n) (fw(Xi)-yi)^2
+                During training can be used as a function to optimize
+                During testing can be used as an evaluation metric
+                Find W such that the function is minimizes
+            Least-Square Solution
+                take derivative with respect to w
+                Set the derivative to zero
+                Solve for W using linear algebra
+        Instead of classes use Values
+            Many classifiers use parameter-based fitting decision tree and random forest do not, but can still be used for regression
+
+    6.5
+        Understand and interpret coefficient of determination R^2, mean squared error MSE , root mean squared error RMSE , and mean absolute error MAE.
+        R^2 is the proportion of variation explained by the quadratic regression 
+        MSE is heavily influenced by unusual values RMSE is not
+    6.6
+
