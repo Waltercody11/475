@@ -141,14 +141,7 @@ Week 5: Day 1
                 Functions:
                     looking for w in fw(x)
                 n-sized ground truth vector Y
-            MSE is computed as 1/n (sum n) (fw(Xi)-yi)^2
-                During training can be used as a function to optimize
-                During testing can be used as an evaluation metric
-                Find W such that the function is minimizes
-            Least-Square Solution
-                take derivative with respect to w
-                Set the derivative to zero
-                Solve for W using linear algebra
+            MSE is computed as 1/n (sum n) (fw(Xi)-yi)^211
         Instead of classes use Values
             Many classifiers use parameter-based fitting decision tree and random forest do not, but can still be used for regression
 
@@ -158,3 +151,62 @@ Week 5: Day 1
         MSE is heavily influenced by unusual values RMSE is not
     6.6
 
+Week 5: Day 2
+    Chapter 7
+        Describe how optimization techniques are used in machine learning
+    Describe various calculus techniques relevant to gradient descent
+    Describe how a linear regression model can be trained by gradient descent
+    Define regularization
+    Define L1 and L2 penalties
+    
+    How do you compute a gradient vector for a given function?
+    How does a local minima differ from a global minima? What types of functions have global and local minima?  What guarantees does gradient descent make about finding global and/or local minima?
+    How does gradient descent adjust weights at each iteration?
+    What are the hyper parameters of gradient descent and what is there meaning?
+    What is overfitting? How does regularization help overcome the problem of overfitting?
+    What is the difference between Ridge regression and Lasso regression? What types of penalties do they use?
+
+    Calculus Review
+        Function:
+            Convex, any two points on the function would not lie below the function if a line is drawn between them
+            all minima and maxima derivative will be 0
+            Partial derivative:
+                we take the derivatives for each feature and treat the other features as constant values
+        Gradient Vector
+            given a fuction that takes a vector as an argument
+            you have a value for every feature in the gradient vector
+        Regularization:
+            lots of weights with small values is a sign of overfitting
+        Gradient Descent may overfit because some of the features may not be useful
+
+        M is the number of features
+        L1 penalty:
+            (hyperparameter)(sum of m)(|Weight|)
+        L2 penalty:
+            (hyperparameter)(sum of m)(W^2)
+        Ridge Regression:
+            uses L2 penalty
+            shrinks coeffecients
+            penalizes larger coefficients more due to squaring
+        Lasso Regression:
+            Uses L1 penalty
+            selectively reduces coef
+            Sometimes allows the designer to discard certain features(feature selection)
+            Slower convergence
+    Gradient Descent:
+        Machine learning workhorse
+        Convex function: can find global minima/maxima
+        Non-convec: can find local
+        Used in training in many ML approaches
+        Algo:
+            input f
+            intitial vector of weights (w...)
+            step size y
+            convergence criteria e(epsilon)
+                r = 0
+                Whilel r = 0 or abs(Wr-Wr-1) > e
+                    r=r+1
+                    Wr = Wr-1 - y(gradient vector(Wr-1))
+            **finding values that are getting closer and closer to when that derivative is 0
+    Gradient gives direction of highest ascent
+    Size of step is called learning rate
