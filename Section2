@@ -210,3 +210,22 @@ Week 5: Day 2
             **finding values that are getting closer and closer to when that derivative is 0
     Gradient gives direction of highest ascent
     Size of step is called learning rate
+
+    Week 6 Day 1:
+        Gradient boosted decision trees
+            Feature-based
+            Problem:
+                Find a series of functions where if you add them up they will give you y-hat (value for target class)
+                Where omega is the regularization function
+            Cannot use gradient descent 
+            We want an algo that will leark k functions to minimize loss and regularization
+
+            Additive boosting
+                At each round t we find a new learner to add to our ensemble
+                yi(t-1) is prediction from previous round
+            XGBoost
+                from the obj function at t, an impurity function is derived
+                impurity function is used to crete splits
+        Goal of SVM is find a maximum margin hyperplane that keeps two classes as far apart as possible
+        Kernel trick allos tranformation to linear relationships
+        SVM uses a maximum margin hyperplane
