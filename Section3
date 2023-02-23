@@ -1,1 +1,65 @@
 
+Module 9:
+    • Describe an artificial neuron
+    • Describe the role of an activation function
+    • Describe how artificial neuron are used to assemble a
+    neural networks
+    • Define deep neural networks in terms of neural network
+    terminology
+
+    9.1:
+        artificial Neurons
+        Describe an artificial neuron
+            Inputs(Dendrites)->Computation(Nucleous)->Outputs(Axon)
+            xi's are the inputs from prevous layer
+                every input will have an associated weight
+                w0 is the biad not associated with an input but still a weight
+            f(Wo + sum(n) (wi*xi))
+            Input layer, hidden layer, output layer
+            in some cases parameters may be shared across certain nodes
+        Activation functions:
+            Describe the role of an activation function
+                Desirable to confine values to a range
+                Desirable to be differntiable
+                Non-linear function tend to be preffered 
+                Functions that tend to distrubute values toward extremes are prefarable
+                Choic of activation function often affect the accuracy of the Module
+            Linear activation function
+                does not chaneg the neuron at all
+                usually output layer
+            Softmax activation function
+                usually output layer as well
+                consideres other neurons in the layer
+            Sigmoid activation function
+                historically used in nn research
+                less-used in modern systems due to small range
+            Hyperbolic tangent
+                well-accepted alt to Sigmoid
+                traditionally used in inner layers
+            Rectified Linear Unit (ReLU)
+                very common in most modern dl systems due to superior performance
+                returns 0 if result is less than 0
+                generally used in hidden layers
+            Leaky Rectified Linear Unit (Leaky ReLU)
+                RELU has negative values fo to zero which may cause problem
+            Gaussian error linear unit (GELU)
+                multiplies the input by a cdf of th enormal distribution of the input
+        Feed-forward NN
+            allows for modular design
+            more layers equate to more parameters 
+            Hyperparameters and Design of Layers
+                Size:
+                    • Number of Neurons
+                Activation function
+                    • Normally ReLU or GELU for hidden layers
+                    • Normally linear or softmax for output layer
+                Dense:
+                    connected to all neurons in previous layer
+                Pooling layer:
+                    allows down-sampling from prev layers, maax or average of all outputs of previous layer
+                COnvolutional layer
+                    allows for down-sampling
+                        used a sliding window over the ouputs 
+                        used for feature extraction
+            
+        A perceptron only has an input layer and a binary output layer. The inputs are fed directly to the outputs through an activation function, so the perceptron does not contain any hidden layers. 
