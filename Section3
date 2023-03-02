@@ -1,3 +1,10 @@
+Module 9:
+    • Describe an artificial neuron
+    • Describe the role of an activation function
+    • Describe how artificial neuron are used to assemble a
+    neural networks
+    • Define deep neural networks in terms of neural network
+    terminology
 
 Module 9:
     • Describe an artificial neuron
@@ -63,3 +70,301 @@ Module 9:
                         used for feature extraction
             
         A perceptron only has an input layer and a binary output layer. The inputs are fed directly to the outputs through an activation function, so the perceptron does not contain any hidden layers. 
+
+    10.1
+        Forward propagation
+            loss function output to ground truth
+                create derivatives going back through network
+        MSE
+            find W such that mse is minimized
+
+        Strat:
+            Envision the nn as a large function
+            for a given set of weigts in the nn we adjust based on gradient decent
+        Mini batching willl get derivative of subset of sampels
+        Epochs:
+            single pass through the data
+        convolutional nn is feed forward
+        Kernel a gird of weights over an image
+
+        Hyperparameters for CNN is Stride, Depth and Padding
+
+
+        
+
+When it comes to dealing with tabular data, the models discussed in earlier chapters may persist as a suitable choice for building a deep learning solution. To remember, tabular data is a popular format consisting of rows representing samples and columns denoting the relevant features of these samples. Dealing with tabular data usually implies that the patterns the model seeks may contain interactions among the different features, but there are no assumptions to make about the structure of the interactions between the features a priori. Sometimes we simply lack the necessary information to guide the creation of more intricate structures. In these situations, an multi-layer perceptron (MLP) may be the greatest option available to us. Such structure-less networks, on the other hand, might become cultivated unwieldy when dealing with high-dimensional data.
+
+For instance, let us consider building a regular deep network (stacking many full connected layers) to classify an image as belonging to a cat's or a dog's class. Assume the shape of the input image is 32 × 32 × 3 (i.e. width, height, and the number of channels), then, according to the parameterization cost of fully connected layers, the first hidden layer would have a total of 32 × 32 × 3 = 3072 parameters. This quantity still looks wieldy, but obviously, this fully connected layer does not scale to images with larger dimensions. Further, consider the case in which the image has a moderate resolution, e.g. 512 × 512 × 3. This would enlarge the number of parameters of the earliest layer to be 512 × 512 × 3 = 786 432. Definitely, the model structure contains many such layers. So, the parameters would increase rapidly! Obviously, this complete connectivity is inefficient, and a large number of parameters would speedily lead to the network overfit. Even though we have many graphical processing units, a capacity for decentralized learning, and an astonishing quantity of perseverance, training large-sized models may become infeasible. Additionally, training a model to fit a large number of parameters might necessitate having a large-enough training dataset. In fact, classifying images of cats from dogs seems an easy task for both humans and computers, apparently denying the above intuitions due to the fact that images show rich structures that could be exploited by humans and deep learning in the same way. In this regard, CNNs evolved as the inventive approach that has been embraced by deep learning to leverage some of the acknowledged structures in natural images, and they constrain the architecture in a more sensible way. Specifically, different from a regular deep network, the layers of a CNN contain neurons organized in three dimensions: width, height, and depth. The term depth here denotes the third dimension of an activation volume instead of the number of layers in a network. For example, when the input is of shape 32 × 32 × 3, the activation volume will have dimensions 32 × 32 × 3. As shown in Figure 11.2.1, the neurons per layer are just connected to a small area of the previous layer, instead of all of the neurons in a regular deep network.
+
+We are ready to explore how convolutional layers operate in practice now that we have figured out how they work in theory. CNNs are efficient structures for analyzing structure in picture data, which is why we chose them as motivators.
+The cross-correlation operation
+
+As the name implies, correlation is the act of moving a filter mask, also known as a kernel, over a picture in order to calculate each location's total of the individual products. When a filter is displaced, the result is a change in correlation. Since the filter's displacement is inversely related to correlation values, each correlation value equates to one unit of displacement in the filter.
+
+In mathematical terms, for continuous complex-valued functions, the cross-correlation operation between one-dimensional input
+and a filter
+
+can be defined as:
+(11.3a)
+
+Likewise, for discrete input sequences, cross-correlation operation between one-dimensional input
+and a filter
+
+can be defined as:
+(11.3b)
+
+In a similar way, when it comes to two-dimensional input, the main concept is the same, and only the dimensionality of the image and the filter has changed. Thus, the cross-correlation operation between one-dimensional input
+and a filter
+
+can be defined as:
+(11.3c)
+
+In two-dimensional space, the cross-correlation operation is simple. It just sets a filter of a particular size over a specific area of the input (i.e. image) that matches the filter's dimensions. As it proceeds with this operation, the identical filter is applied to every element in the input (i.e. pixel of the image). As a result, cross-validation can obtain two extremely desirable qualities. First, the ability of a model or a system to be able to recognize the same object, no matter where it appears in an image, which is known as translational invariance. Second, the ability of a model or a system to concentrate just on the local regions of the input image, ignoring the rest of the image. When it comes to a discrete unit impulse (i.e. two-dimensional matrix of all zeros and just one), the cross-correlation function has a limitation or distinctive attribute that returns an output that is a replica of the filter but rotated by 180°.
+Convolution operation
+
+Convolution operations exhibit high similarity with cross-correlation. They share the same concept, but the former rotates the filter
+by 180° before being applied to the input
+
+. This way, the essential estate of convolution operation lies in the ability to convolve kernel with a discrete unit impulse to generate a duplicate of the kernel at the site of the impulse. In the cross-correlation section, we learned that a correlation operation produces a replica of the impulse rotated by 180°. As a result, it should be easy to find the right outcome if the filter is pre-rotated and then continue doing the same sliding sum of product operation (Figure 11.3.1).
+Figure 11.3.1: Convolution operation applied on grid input. The colored cell in the output is computed by applying the kernel to the colored cells in the input tensor.
+Schematic illustration of convolution operation applied on grid input. The colored cell in the output is computed by applying the kernel to the colored cells in the input tensor.
+
+Mathematically speaking, for continuous complex-valued functions, the convolution operation between one-dimensional input
+and a filter
+
+can be defined as
+(11.3d)
+
+Likewise, for discrete input sequences, the convolution operation between one-dimensional input
+and a filter
+
+can be defined as
+(11.3e)
+
+In a similar way, when it comes to two-dimensional input, the main concept is the same, but only the dimensionality of the image and the filter has changed. Thus, the convolution operation between one-dimensional input
+and a filter
+
+can be defined as
+(11.3f)
+
+However, almost all machine learning and deep learning libraries use the simplified cross-correlation function and call it convolution – this book follows this naming terminology.
+Receptive field
+
+As stated before, the production of a convolutional layer, simply known as the feature map, can be considered as the extracted features and/or learned representations from the spatial space by the sequence of a layer. In convolutional networks, for every instance
+of some layer, its receptive field of any element of a particular layer means all elements in the preceding layers that might contribute to the computation of
+
+throughout the forward flow of gradients. Following this definition, the receptive field could be bigger than the concrete dimension of the input.
+
+Recall the operation in Figure 11.3.1 to further interpret the receptive field. Given the convolutional layer with a 2 × 2 kernel, the shaded output element has a receptive field four corresponding to the shaded input elements. Moreover, let us extend the network with one convolutional layer with a 2 × 2 kernel that takes the previous output as input. This kernel generates a single output element whose receptive field contains all the four inputs, whereas the corresponding receptive field contains all the nine input elements. Consequently, a deeper network can be constructed when every part of the feature map requires a bigger receptive field to capture input patterns over a greater area.
+Padding and stride
+
+In earlier discussions, it is agreed that the input of the convolution layer has two dimensions – width
+and height , and similarly, the kernel has both width and height. Given these dimensions, the output of the convolutional layer can have a width of () as well as height of (
+
+). In some circumstances, the convolutional network may include padding and strided convolutional layer, which certainly impacts the shape of the output. As an incentive, consider a typical scenario where the dimensions of kernels are larger than one, then, stacking multiple convolutional layers makes the model tend to end with outputs that are noticeably smaller than its input. For example, consider having a 240 × 240 image as an input, with 10 convolutional layers of 5 × 5, the size of the image will be reduced to 200 × 200, cutting off 30% of the input which implies destroying any important information near the image boundaries. Padded convolutions offer an adequate solution to this problem. On the other hand, some tasks require the convolutional network to drastically decrease the dimensionality, especially when the original input dimensions are large. Strided convolutions provide an ideal solution to deal with these scenarios.
+Padding
+
+As stated before, one challenge faced at the time of using convolutional layers is the tendency to miss the boundary information, i.e. pixels close to the image perimeter. One may think that only a few pixels are lost when small kernels are used. However, this can grow up as the convolutional network contain numerous successive layers. A simple solution to this challenge is to add additional zero-valued elements of filling around the border of the original input, therefore enlarging the active dimension of input, as illustrated in Figure 11.3.2. It is noted that 3 × 3 is padded to increase its size to 5 × 5, and accordingly, the size of its output is increased to 4 × 4. This way, to calculate the first output element, the colored input cells are cross-correlated with kernel matrix as follows:
+Figure 11.3.2: Example of convolution layer with padding.
+Schematic illustration of example of convolution layer with padding.
+
+Generally, given
+as the total number of added columns of padding ( on left-side and on right-side) and as the total number of rows of padding (unevenly on the upper side and
+
+on the lower side), then output dimension would be
+(11.3g)
+
+This implies that the width and height of the output expanded
+and , correspondingly. In the general scenario, one could set and to enable the output to have the same dimensions as the input. This way, it would be easy to estimate the output dimensions of each layer in a convolutional network. If the value of is odd, then the input of the convolution layer will be padded with columns on both sides of the width. If is even, then the input of the convolution layer will be padded with columns on the left side and will be padded with columns on the right side. In a similar way, the two edges of the input height will be padded. Convolutional networks usually use convolution kernels whose size is an odd value, such as one, three, five, or seven. Setting up non-even sizes of the kernel could enable the network to reserve the spatial dimensionality while attaining an even value of padding, thereby allowing adding an identical number of columns on the right hand as well as the left hand, and an identical number of rows on top and bottom. This ability to maintain dimensionality provides a clerical advantage. For the two-dimensional input , the odd kernel size enables attaining the output with the same size, in which computing the element is based on the convolution between the kernel centered on
+
+and the input map.
+Stride
+
+As a matter of fact, the cross-correlation is performed by horizontally sliding a convolution kernel from the left side toward the right side of the rows of input. This process is repeated for all rows in the input. The earlier discussion assumes that the default sliding step for the convolution kernel is one element per time. Nevertheless, some tasks require downsampling the input or reducing computation, which, in turn, necessitate slipping the kernel with step size of two or more elements per time, skipping the midway elements. The term stride defines the number of rows and columns navigated per single slide. To this point, the convolutional layers are assumed to have a stride of one, for both width and height, but it can be changed according to the model you need to build. Figure 11.3.3 illustrates the convolution procedure with a horizontal stride of two and a vertical stride of three. To calculate the shaded output element, the shaded input cells are cross-correlated with the kernel matrix as follows:
+Figure 11.3.3: Example of convolution layer with strides of size 3 × 2.
+Schematic illustration of example of convolution layer with strides of size 3 by 2.
+
+It could be noted that once the first element in the first output row is calculated, the kernel glides by two columns toward the right. On the other hand, once the corresponding output is computed, the kernel slips down in three steps. One may ask why the kernel does not continue sliding two columns to the right. The answer is there is only a single column remaining to the right, and this way, the input elements could not match the kernel (except another column is added with padding). Generally speaking, assuming the stride of the width is
+and the stride of the height is
+
+, then the shape of the output would be
+(11.3h)
+
+If we set
+and
+
+, then the shape of output would be shortened to
+(11.3i)
+
+In addition, if the input dimensions are divisible by the strides, the output dimension will be equal to
+(11.3j)
+
+For convenience, if the padding value on the width and height dimensions are
+and correspondingly, the padding is referred to as even when . Similarly, if the stride on the width and height dimensions are and correspondingly, the stride is referred to as even when . As an initial value, the convolution has zero padding and unit stride. In actual fact, it is rare to use heterogeneous padding or strides in practical case studies, i.e. case and .
+
+To this point, the discussion assumes the convolutional input, convolutional output, and kernels, each is structured in the form of two-dimensional tensors. However, this assumption has some limitations and cannot be generalized. So far, this assumption ignored that RGB images are made up of three channels specifying the value of red, green, and blue colors, i.e. 512 × 512 × 3. In fact, the shape of images is determined with three dimensions rather than two as someone might think. These dimensions are width, height, and the number of channels. Whereas the former two dimensions encode spatial relations of image content, the latter can be considered allocating a multidimensional representation to each pixel value. Besides, just as the input of the convolutional network is shaped as a three-dimensional tensor, hidden representations, in this case, are similarly formulated as a three-dimensional map. So, the network now has a vector of features conforming to each spatial position, rather than just a single feature. To make things clearer, one can imagine the output of convolutions as a stack of feature maps, which can also be known as the output channels or filters of this layer. Instinctively, one could envisage that at earlier layers next to the input layer, some channels might become dedicated to features of the edges while others might be dedicated to features, textures, and so on. By taking into account the number of channels in the convolutional network, the input and/or output of the layer has a three-dimensional shape.
+Multi-channel inputs
+
+For multi-channel input data, it is necessary to build a convolutional kernel with an identical number of input channels, so as to enable the execution of convolution with the input data. Given the number of input channels
+, the convolutional kernel must have a number of input channels that equals . when the spatial dimension of convolution kernel size is , then having means that the kernel has a two-dimensional tensor of shape . Nevertheless, if , then, for each input channel, the kernel needs to encompass a tensor of shape . The concatenation of tensors lead to a convolutional kernel with a shape . In this way, cross-correlation can be carried out between the two-dimensional kernel and two-dimensional input at each channel. Then, the
+
+results are added up together (over the channel dimension) to produce a two-dimensional tensor as the output of convolution between the kernel and input sharing the same number of channels. The convolution operation using multi-channel input is illustrated in Figure 11.4.1. The shaded output element can be computed based on cross-correlation between the shaded input cells and kernel tensor as follows:
+
+where the first term represents the output of cross-correlation on the first channel, while the second one represents the output of cross-correlation on the second channel.
+Figure 11.4.1: Example of two-dimensional convolution with two input channels.
+Schematic illustration of example of two-dimensional convolution with two input channels.
+Multi-channel output
+
+In previous sections, convolution operation has single output irrespective of how many input channels it has. Nevertheless, as stated earlier, it comes to be absolutely necessary for convolution operation to include multiple channels. Commonly, the channel dimension gets increased by the increase of the depth of the convolutional network, where the spatial resolution is typically sacrificed in order to achieve higher channel dimensions. Instinctively, one can imagine each channel as countering a distinct group of a learnt feature representation. Realism is a little more sophisticated than this simplistic interpretation since representations are not learned independently, but instead are designed to be beneficial when used in conjunction with other representations. As a result, it is possible that a single channel does not learn a specific set of features (edge features or texture features), but instead that these set of features occupy a certain area of channel space. To get a multi-channel output, given the
+and as number of input and output channels, respectively, and and as the height and width of the kernel. Then, a kernel tensor of shape must be created for every output channel. These tensors need to be concatenated over the channel dimension so as to get a convolution kernel of the shape
+
+. Each output channel is computed from the cross-correlation between the corresponding convolution kernel and all channels in the input tensor.
+Convolutional kernel 1 × 1
+
+As the name implies, a 1 × 1 convolutional kernel has
+, which seems to make no sense. Commonly, the role of the convolutional kernel is to slide over input to correlate neighboring input elements in the spatial space. However, this does not apply to the convolution (1 × 1) layer. Even so, it provides common functionality that can be exploited to develop a complex and elegant convolutional network. Since the smallest kernel size is applied, the convolution (1 × 1) is unable to learn or extract interaction patterns among neighboring elements in spatial space. So, the calculation in the convolution (1 × 1) just takes place at the channel space. Figure 11.4.2 illustrates an example of the convolution process between the 1 × 1 kernel having three input channels and two output channels. Notice that the output has the same dimensions as the input, which means that every output element is computed by linearly combining the elements in the same position in input channels. This way the convolution (1 × 1) can be elegantly applied to adjust the number of channels in convolutional networks and hence enable controlling model complexity. It is commonly believed that the convolution (1 × 1) function as a linear/dense layer used to convert values of each input element to the corresponding output values. Since it is still considered a convolution, the parameters are bound to the input map. Hence, the number of parameters of 1 × 1 kernel are computed as
+
+plus the bias value.
+Figure 11.4.2: E
+When convolutional network processes images, the network needs to progressively decrease the spatial resolution of the learnt feature maps by aggregating the features so that the deeper the network, the greater is the receptive field of each hidden node in any deep layer.
+
+Recall the example of classifying the image as containing a cat or a dog. It is notable that nodes need to be sensitive to the whole input (global representation). By progressively aggregating the hidden features and generating rougher maps, the objective of eventually learning a global representation can be accomplished while benefiting from the abilities of intermediary convolutions to efficiently learn valuable hidden representations. Furthermore, translation invariance is an important consideration when the convolution is looking for lower-level features, such as edges. In this regard, pooling layers are discussed in this section to act as a key enabler for two main objectives:
+
+    Enable the convolution network to downsample the learnt representation across spatial dimensions.
+    Enable alleviating the sensitivity of convolution network to locality.
+
+Max pooling
+
+As with the convolutional layer, the pooling layer functions by applying a window (with fixed dimensions) to scan all input elements in accordance with a predefined stride, calculating one output for each navigated position. Nevertheless, different from kernelized convolution operation, the pooling operation does not contain any kernel. So, it does not have parameters to learn. Rather, a pooling operation is calculated with determinism, such that it calculates a particular value based on the input elements covered by the pooling window. When the pooling layer calculates the maximum input value under the pooling window as its output, it is called max-pool as an acronym for maximum pooling. As with the convolutional layer, the pooling window start sliding the input feature map from the top left corner scanning the input tensor in a row-by-row manner. By each sliding step, the max-pool layer returns the maximum value in the current input subtensor covered by the pooling window. Figure 11.5.1 illustrates an example of a max-pool operation on one channel input, whereas four output elements are derived from each pooling window as follows:
+(11.5a)
+Figure 11.5.1: Maximum pool layer with a pooling window of shape 2 × 2.
+Schematic illustration of maximum pool layer with a pooling window of shape 2by2.
+Average pooling
+
+Average pooling is a variant of the pooling layer that calculate the average of values in the input subtensor covered by the pooling window as its output.
+Figure 11.5.2: Average pool layer with a dimension of 2 × 2.
+Schematic illustration of average pool layer with a dimension of 2by2.
+
+Similar to convolutional layers, pooling layers could control and adjust the shape of output using padding and stride hyperparameters. This way, the preferred output shape can be obtained by padding the input and/or changing the stride size. In the case of multi-channel, the pooling operation is applied on each input channel independently, instead of adding outputs up over channel dimension as stated with the convolutional kernel. This, in turn, implies that the pooling layer has no effect on the number of channels as the number of channels are always the same for both input and output. Figure 11.2.1 illustrates an example of an average pooling operation on multi-channel input, whereas four output elements are derived from each pooling window as follows:
+
+
+Normalization is a technique typically applied to prepare data before training the model. The primary objective of normalization is to offer a uniform scale for numerical values. If the dataset includes numerical data fluctuating in a big range, it will skew the learning process, leading to inconsistent training of the model. One possible reason for this dilemma is the distribution of the inputs to layers could differ after the update of mini-batch parameters. This could lead the learning algorithm to continually follow a moving target and hence hamper the convergence of the network. This variation in the distribution of layers' inputs in the network is known as "internal covariate shift."; In this regard, normalization has always been an active research point in deep learning because of its potential to reduce training time by a huge factor for several reasons. First, it can make the network unbiased to high-valued features by normalizing each feature so that they maintain the contribution of every feature, as some feature has higher numerical value than others. This way, it eliminates the Internal Covariate Shift. Second, it can smooth the loss surface Third, it can increase the convergence as it does not allow weights to explode all over the place and constrains them to a specific range. Forth, an unintentional gain of normalization is that it can help regularize the deep networks (just to some extent, not substantially). When it comes to optimizing neural networks, normalization has been proved to be beneficial since 1998 [1]. After the publication of batch normalization [2] in 2015, this study direction has been widely investigated by researchers. A slew variety of normalization approaches has emerged since then. In this section, we explore the state-of-the-art normalization layer as common and efficient techniques for consistently speeding up the convergence of deep networks.
+Batch normalization
+
+As an example of the need for batch normalization, consider a few of the issues that arise during the training of deep networks.
+
+First, data preparation options often have a significant impact on final outcomes. Standardization of input features to have a variance of one and a mean of zero was a trivial step to prepare real data for training. This standardization is demonstrated beneficial for optimizers because it sets the parameters on the same scale before the optimization process begins. Second, it is also important to note that as deep networks are being trained, the hidden layers' variables might take values with wildly changing magnitudes: across levels, or even between units in the same layer, and over time, as we adjust the model parameters. Batch normalization's creators speculated informally that the network's convergence could be hampered by this skewed distribution of such variables. As a final point, deeper networks are difficult to model and can be easily overfitted. As a result, the importance of regularization increases.
+
+Batch normalization concentrates on standardizing the inputs such that they have approximately zero mean and unit variance (Figure 11.6.1). In practice, for each input to the batch normalization layer, the mean of the current batch is subtracted, and the output is divided by the standard deviation wherever both are projected according to the current mini-batch's statistics. You should be aware that attempting batch normalization with mini-batches of size one will yield no useful results because each hidden unit would have a value of zero if the means were subtracted. Batch normalization may have a greater impact on batch size selection than it would otherwise have, and this is something to keep in mind.
+Figure 11.6.1: Illustration of batch normalization.
+Schematic illustration of batch normalization.
+
+It is possible that the model is better suited to handle inputs with a mean and variance that is not equal to zero, and one, respectively. Thus, batch normalization comes up with two trainable parameters, namely scale parameter
+and shift parameter
+
+to avoid arbitrary selection of unit variance.
+
+In mathematical terms, given the input
+belonging to a mini-batch . The main steps to calculate the batch normalized output
+
+is described as follows:
+
+    Step 1: Calculate the mini-batch mean
+
+(11.6a)
+
+Step 2: Calculate the mini-batch variance
+(11.6b)
+
+Step 3: Normalize to obtain mini-batch with zero mean and unit variance.
+(11.6c)
+
+where
+
+denotes a constant to be added to the variance to guarantee that there is no chance to divide by zero, even in situations wherever the practical variance value may possibly approximate to zero.
+
+Step 4: Scale and shift
+ʘ
+
+    (11.6d)
+
+How does batch normalization aid in the training of deep networks? Gradient descent, as explained before, enables the network to determine the gradient from the current inputs to each layer and then reduces the weights in that direction. Nevertheless, because each of the layers is built on top of the one before it, even a small change in the weights of an earlier layer can have a significant impact on how the input data is distributed, resulting in less-than-ideal signals for the network. There are several ways to update weights in a neural network; a few of them are more efficient than others; and some of them are less efficient than others. This is why batch normalization is so popular since it offers a training programme that is both consistent and efficient.
+
+However, some drawbacks still are encountered when batch normalization is used:
+
+    Due to the fact that why batch normalization uses the mini-batch to estimate the population mean and variance in each iteration, it requires higher batch sizes while training. Given the possibility of high input resolution, batch normalization may be a complex operation to train for applications like medical image segmentation for the reason that training with bigger batch sizes is not computationally viable.
+    Recurrent networks (discussed in later chapter) are not compatible with batch normalization. As a result of this difficulty, recurrent networks would require performing normalization in each timestep, which, in turn, is more difficult to employ batch normalization in such a family of deep networks.
+    Training and inference are calculated in a different way: Batch normalization layer does not compute the statistics from the mini-batch of test data; rather it uses the fixed statistics computed from the training data. Using batch normalization can be risky because it provides more complexity and demands a high degree of caution.
+
+Layer normalization
+
+Motivated by the findings obtained by batch normalization, layer normalization [4] was proposed as a layer for normalizing the activations in which the statistics (mean and variance) are calculated for each individual sample across all channels and both spatial dimensions rather than calculated across the mini-batch and spatial dimensions (Figure 11.6.2). In other words, it normalizes input across the features rather than normalizing input features across the batch dimension in batch normalization. This way, layer normalization addresses the limitation of batch normalization by eliminating the reliance on batches and facilitating the normalizing of the layers of recurrent networks. Essentially, layer normalization normalizes each feature of the activations to zero mean and unit variance.
+Figure 11.6.2: Illustration of batch normalization.
+Schematic illustration of batch normalization.
+
+In mathematical terms, given inputs
+belonging to a mini-batch , each sample includes elements, such that the length of flattened is , by normalizing the inputs using trainable scale parameter and shift parameter , the outputs could be denoted , where
+
+. Since layer normalization does not depend on batch statistics, it normalizes with the mean and variance of each vector as described here:
+
+    Step 1: Calculate the feature/channel mean
+
+(11.6e)
+
+Step 2: Calculate feature/channel variance
+(11.6f)
+
+Step 3: Normalize each sample such that each feature has zero mean and unit variance. The
+
+denotes the numerical stability constant in a scenario in which the denominator turns into zero by coincidence.
+(11.6g)
+
+Step 4: Scale and shift
+ʘ
+
+    (11.6h)
+
+For convolution outputs, the math has to be tweaked a bit because it does not make sense to combine all the elements from different channels together and calculate their mean and variance for all of them at once. For each of the channels, normalization was done solely for that channel, and no other channels were normalized.
+
+Given the four-dimensional feature map
+,,, ∈ ℝ [,,,], where = Batch size, = Number of channels (filters) in that layer, = Height of feature map, and
+
+= Width of feature map. These calculations can generalize to these four-dimensional tensors by calculating the mean across all channels and the spatial dimension as follows:
+(11.6i)
+(11.6j)
+(11.6k)
+ʘ
+(11.6l)
+Instance normalization
+
+Instance normalization [5] is another layer for normalizing the activation of layers in such a way that the mean and variance statistics are computed for each specific channel for each individual sample across both spatial dimensions (Figure 11.6.3). When testing, the Instance Normalization layer is used instead of Batch normalization because of non-dependency of mini-batch statistics. The affine parameters in Instance Normalization can have a profound effect on the final image's aesthetic. Individual samples can be normalized to the target style in instance normalization, whereas BN can only normalize the style of the entire dataset. So, it is much easier to train a model to do something in a precise way. Content manipulation and local details are more important to the rest of the network than the original global ones. To make clear how instance normalization works out, let us consider four-dimensional sample feature maps
+ ∈ ℝ[,,,] that establish an input tensor to the instance normalization layer. In instance normalization, a single training sample feature map (shaded in the figure) is considered to calculate the mean and variance. Thus, the instance normalization is performed for a single instance
+
+as follows:
+(11.6m)
+(11.6n)
+(11.6o)
+ʘ
+(11.6p)
+Figure 11.6.3: Illustration of instance normalization.
+Schematic illustration of instance normalization.
+Group normalization
+
+Layer normalization and instance normalization are both compromises that result in group normalization [6, 7]. The main distinction between layer normalization and instance normalization is that layer normalization takes the channel dimension into account, while instance normalization does not (Figure 11.6.4). On the other hand, group normalization focuses on normalizing channels inside a certain group. For now, batch dimensions are not being utilized (only batch normalization normalizes over the batch dimension). Group normalization is comparable to layer normalization in that it is executed along the feature direction, but unlike LN, it separates the features into specific groups and normalizes each group separately. When used as a hyperparameter, group normalization outperforms layer normalization in most cases.
+Figure 11.6.4: Illustration of group normalization.
+Schematic illustration of group normalization.
+Weight normalization
+
+Unlike conventional normalization methods that concentrate on activations, weight normalization [3] was proposed as a process of reparametrizing the weight vectors in a deep network, which functions by decoupling the length of these from their direction. In other words, weight normalization can be declared as a technique for enhancing the optimizability of the weights of deep networks. Weight normalization seeks to standardize the weight vectors themselves. Even more remarkably, weight normalization decouples the value and norm of the weight vectors. Therefore, rather than learning a weight vector
+, the network learns a vector representing the direction of the weight vector, as well as scalar
+
+– the norm representing, unofficially, the intensity or significance of the weight vector.
+(11.6q)
+
+where
+are calculated normally during the forward propagation, the parameters and are optimized in the backward propagation step. denotes -dimensional vector, |||| represents the Euclidean norm of parameter . This decoupling has the impact of fixing the Euclidean norm of to get ‖‖ = , unbiased of the parameters . Similar to batch normalization, weight normalization accelerates the training of the deep network. However, it can be applied to recurrent networks. Weight normalization, on the other hand, is less stable than batch normalization when it comes to training deep networks, which is why it is not often employed in practice.
+
+
+To this point, all the components necessary to build a completely functional convolutional network have been introduced throughout the previous sections. Now, let us present LeNet as one of the first released convolutional models that make an earlier breakthrough in computer vision tasks. The LeNet was proposed by Yann LeCun for learning to recognize handwritten digits in images [8].
+
+Broadly speaking, the architecture of LeNet is composed of two main building blocks, as illustrated in Figure 11.7.1. First, a convolutional encoder comprising two convolutional layers. Second, the linear block constructed with three fully connected layers. In more detail, convolutional encoder stacks two convolutional layers, each followed by a sigmoid activation function, and a later average pooling layer (size = 2 × 2 ). Bearing in mind that ReLU activation and max pooling layer provide a better performance, however, these findings had not reached in the 1990s. The convolutional layers map spatially coordinated inputs to a number of two-dimensional feature maps, and normally growing up the number of channels to six output channels and 16 output channels, respectively. The feature maps of the convolutional encoder have four-dimensional shapes (i.e. batch size, number of channels, height, and width). Thus, to feed these maps into the linear block, they must be reshaped into two-order maps as projected by linear/dense layers. To remember, this new two-dimensional representation uses one dimension to index instances in the mini-batch and the other to provide the flat vector representation of each instance. The linear block in LeNet consists of three linear/dense layers, with 120, 84, and 10 nodes, correspondingly.
